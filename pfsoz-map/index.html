@@ -1,1 +1,65 @@
-test
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>PF非公式地図マーカー</title>
+  <meta name="description" content="本サイトはPixivにてアロハJ氏が開催している企画「pixivファンタジア」を基に、一参加者が趣味で作った非公式地図マーカーです。">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="PF非公式地図マーカー">
+  <meta property="og:description" content="本サイトはPixivにてアロハJ氏が開催している企画「pixivファンタジア」を基に、一参加者が趣味で作った非公式地図マーカーです。">
+  <meta property="og:url" content="https://1686.site/pfsoz-map/">
+  <meta property="og:image" content="https://1686.site/pfsoz-map/ogp.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PF非公式地図マーカー">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@PF_MapMarker">
+  <meta name="theme-color" content="#DDDDCE">
+
+  <link rel="shortcut icon" href="icon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="android-chrome-192.png">
+  <meta name="theme-color" content="#DDDDCE">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.min.css" integrity="sha512-oIQ0EBio8LJupRpgmDsIsvm0Fsr6c3XNHLB7at5xb+Cf6eQuCX9xuX8XXGRIcokNgdqL1ms7nqbQ6ryXMGxXpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/leaflet-easy-button.css" />
+  <link rel="stylesheet" href="css/leaflet-tag-filter-button.css" />
+  <link rel="stylesheet" href="css/Control.MiniMap.css" />
+  <link rel="stylesheet" href="css/main.css?202212260048">
+</head>
+<body>
+
+  <div id="loading"><div class="loader"><img src="images/point.svg"></div></div>
+  
+  <div id="map"></div>
+
+  <h1 class="button-dialog">PF非公式地図マーカー</h1>
+
+  <div id="dialog">
+    <div class="dialog-content">
+      <p>本サイトはPixivにて<strong>アロハJ</strong>氏が開催している企画「<strong><a href="https://www.pixiv.net/artworks/101965643" target="_blank" rel="noopener noreferrer">pixivファンタジア - Scepter of Zeraldia</a></strong>」を基に、一参加者が趣味で作った非公式地図マーカーです。</p>
+      <!--p>参加者の皆様が考えた拠点・施設や景色が、地図上のどこに在るかを共有するために制作いたしました。<br>交流や作品作りの一助となれましたら幸いです。</p-->
+      <p>操作方法は <a href="https://www.pixiv.net/artworks/101967995" target="_blank" rel="noopener noreferrer">取扱説明書</a> をご覧ください。<br>
+      <a href="https://pi1686.notion.site/3bc3bf12f4304d92847b6e2baaff62c4?v=8245282793e84fa3b43854e60c7aca0f" target="_blank" rel="noopener noreferrer">よくありそうな質問</a> もまとめています。</p>
+      <p>縮小移転後のため、<a href="https://www.pixiv.net/artworks/101967995" target="_blank" rel="noopener noreferrer">マーカーの登録方法は変更</a>しております。</p>
+      <p>管理者：いろへろ <a href="https://twitter.com/PF_MapMarker" target="_blank" rel="noopener noreferrer">Twitter</a> <a href="https://www.pixiv.net/users/345948" target="_blank" rel="noopener noreferrer">Pixiv</a></p>
+      <div class="button-dialog">閉じる</div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/712c438c15.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet-src.min.js" integrity="sha512-ef1e48BfD+c0pYPlQS9eYZnlRe+jXWbyYc1ORZ7MeIoej97R/9VhTQ1RpnPvy1cEfwO6A/eHirAtK0F4oEOIGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/Leaflet.Icon.Glyph.js"></script>
+  <script src="js/leaflet-easy-button.js"></script>
+  <script src="js/leaflet-tag-filter-button.js"></script>
+  <script src="js/leaflet-hash.js"></script>
+  <script src="js/Control.MiniMap.js"></script>
+  <script src="js/script.js?202302252228"></script>
+  
+</body>
+</html>

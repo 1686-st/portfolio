@@ -1,0 +1,683 @@
+/* =====================================================================================
+    共通
+======================================================================================== */
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100%;
+  font-family: "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+}
+
+#map {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.leaflet-container {
+  background: var(--primary-020-color);
+}
+
+/* 配色 -------------------------------------------------------------------------- */
+:root {
+  --pixiv-main-color: #0096fa;
+  --primary-100-color: #838e83;
+  --primary-080-color: #b2bcaa;
+  --primary-050-color: #c9cebd;
+  --primary-020-color: #ddddce;
+  --primary-000-color: #e7e7dc;
+  --surface-b-color: #2c2c2c;
+  --surface-w-color: #fff;
+}
+
+/* ローディング ------------------------------------------------------------------- */
+#loading {
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s;
+  background-color: var(--primary-020-color);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+}
+.loader {
+  display: block;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  top: calc(50% - 50px);
+  animation: load 1.5s infinite ease;
+}
+.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+@keyframes load {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.loader::after {
+  content: "";
+  opacity: 0;
+  height: 0;
+  width: 0;
+  background-image: url("../images/bg-dialog.svg");
+}
+
+/* メンテナンス ------------------------------------------------------------------- */
+#maintenance {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-020-color);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  opacity: 0.9;
+  text-align: center;
+}
+
+#maintenance p {
+  display: block;
+  margin: auto;
+  width: auto;
+  height: 50px;
+  position: relative;
+  top: calc(50% - 50px);
+}
+
+/* インフォメーション ------------------------------------------------------------------- */
+#infobanner {
+  width: 100vw;
+  background-color: var(--pixiv-main-color);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.infobanner-content {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1em;
+}
+
+.infobanner-content div,
+.infobanner-content p,
+.infobanner-content p a {
+  color: var(--surface-w-color);
+  font-weight: bolder;
+}
+
+.infobanner-content .button-infobanner {
+  height: 40px;
+  width: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.infobanner-content p a {
+  cursor: pointer;
+}
+
+/* 地図切れ目埋め 重ね順調整 ------------------------------------------------------ */
+.leaflet-pane.leaflet-gap-fill-pane {
+  z-index: 100;
+}
+.leaflet-control-minimap {
+  border-width: 2px !important;
+}
+
+/* 高さ support iOS ------------------------------------------------------------- */
+html {
+  height: -webkit-fill-available;
+}
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+#map {
+  height: -webkit-fill-available;
+}
+
+/* ポップの高さ調整 -------------------------------------------------------------------------- */
+.leaflet-popup.leaflet-zoom-animated {
+  bottom: 5px !important;
+}
+
+/* marker-color -------------------------------------------------------------------------- */
+.leaflet-glyph-icon[title*="red"] {
+  filter: hue-rotate(150deg) saturate(150%);
+}
+
+.leaflet-glyph-icon[title*="blue"] {
+  filter: hue-rotate(15deg) saturate(150%);
+}
+
+.leaflet-glyph-icon[title*="purple"] {
+  filter: hue-rotate(70deg) saturate(160%);
+}
+
+.leaflet-glyph-icon[title*="white"] {
+  filter: grayscale(0.9) invert(0) brightness(170%) sepia(30%);
+}
+.leaflet-glyph-icon[title*="white"] > span {
+  filter: invert(0.9);
+}
+
+.leaflet-glyph-icon[title*="yellow"] {
+  filter: hue-rotate(205deg) saturate(200%) brightness(150%);
+}
+.leaflet-glyph-icon[title*="yellow"] > span {
+  color: #000 !important;
+}
+
+.leaflet-glyph-icon[title*="green"] {
+  filter: hue-rotate(270deg);
+}
+
+.leaflet-glyph-icon[title*="black"] {
+  filter: grayscale(0.9) sepia(10%) contrast(2);
+}
+.leaflet-glyph-icon[title*="black"] > span {
+  filter: invert(0.9);
+}
+
+.leaflet-glyph-icon[title*="gray"] {
+  filter: grayscale(0.3) brightness(130%) sepia(30%);
+}
+
+/* marker limit option -------------------------------------------------------------------------- */
+
+.leaflet-glyph-icon[title$="hide"] {
+  display: none;
+}
+
+/* leaflet-popup-content -------------------------------------------------------------------------- */
+div.leaflet-popup-content {
+  text-align: center;
+}
+
+div.leaflet-popup-content h2 {
+  text-align: left;
+  font-size: large;
+  font-weight: bolder;
+  color: var(--surface-b-color);
+  max-width: 250px;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+  font-family: "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+}
+div.leaflet-popup-content h2::before {
+  content: "";
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: -5px;
+  margin-right: 5px;
+}
+div.leaflet-popup-content h2.red::before {
+  background-image: url("../images/ic-c-orgit.svg");
+}
+div.leaflet-popup-content h2.blue::before {
+  background-image: url("../images/ic-c-isriad.svg");
+}
+div.leaflet-popup-content h2.purple::before {
+  background-image: url("../images/ic-c-zaria.svg");
+}
+div.leaflet-popup-content h2.white::before {
+  background-image: url("../images/ic-c-eiril.svg");
+}
+div.leaflet-popup-content h2.yellow::before {
+  background-image: url("../images/ic-c-million.svg");
+}
+div.leaflet-popup-content h2.green::before {
+  background-image: url("../images/ic-c-aradia.svg");
+}
+div.leaflet-popup-content h2.black::before {
+  background-image: url("../images/ic-c-valasin.svg");
+}
+div.leaflet-popup-content h2.gray::before {
+  background-image: url("../images/ic-c-non.svg");
+}
+
+div.leaflet-popup-content h2.event::before {
+  content: none;
+}
+
+div.leaflet-popup-content a.pop-guildtags {
+  font-size: large;
+  margin: 0 0 0.5em;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: block;
+  padding: 0 0.5em;
+  line-height: 40px;
+  height: 40px;
+  color: rgb(61, 118, 153);
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+}
+div.leaflet-popup-content a.pop-guildtags:before {
+  content: "#";
+}
+div.leaflet-popup-content a.pop-guildtags:active,
+div.leaflet-popup-content a.pop-guildtags:hover {
+  color: rgb(61, 118, 153);
+  background-color: rgb(225, 235, 242);
+  border-radius: 20px;
+}
+
+div.leaflet-popup-content a.pop-guildtags:empty {
+  display: none;
+}
+div.leaflet-popup-content a.pop-guildtags:empty:before {
+  display: none;
+  content: none;
+}
+
+div.leaflet-popup-content a.pop-pagelink {
+  font-size: large;
+  margin: 0 auto;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: block;
+  padding: 0 1em;
+  line-height: 36px;
+  height: 40px;
+  color: var(--pixiv-main-color);
+  border: 2px solid var(--pixiv-main-color);
+  border-radius: 20px;
+  background-color: var(--surface-w-color);
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+}
+div.leaflet-popup-content a.pop-pagelink:active,
+div.leaflet-popup-content a.pop-pagelink:hover {
+  color: var(--surface-w-color);
+  background-color: var(--pixiv-main-color);
+}
+
+div.leaflet-popup-content p.pop-tag-store,
+div.leaflet-popup-content p.pop-tag-campground,
+div.leaflet-popup-content p.pop-tag-utensils,
+div.leaflet-popup-content p.pop-tag-seedling,
+div.leaflet-popup-content p.pop-tag-dragon,
+div.leaflet-popup-content p.pop-tag-image,
+div.leaflet-popup-content p.pop-tag-exclamation-circle {
+  margin: 8px 0;
+  color: var(--surface-b-color);
+  text-align: left;
+}
+div.leaflet-popup-content p.pop-tag-store::after,
+div.leaflet-popup-content p.pop-tag-campground::after,
+div.leaflet-popup-content p.pop-tag-utensils::after,
+div.leaflet-popup-content p.pop-tag-seedling::after,
+div.leaflet-popup-content p.pop-tag-dragon::after,
+div.leaflet-popup-content p.pop-tag-image::after,
+div.leaflet-popup-content p.pop-tag-exclamation-circle::after {
+  display: inline-block;
+  font-size: small;
+  font-family: "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+}
+div.leaflet-popup-content p.pop-tag-store::after {
+  content: "#拠点 #施設";
+}
+div.leaflet-popup-content p.pop-tag-campground::after {
+  content: "#ギルド";
+}
+div.leaflet-popup-content p.pop-tag-utensils::after {
+  content: "#食事処";
+}
+div.leaflet-popup-content p.pop-tag-seedling::after {
+  content: "#植物";
+}
+div.leaflet-popup-content p.pop-tag-dragon::after {
+  content: "#動物 #モンスター";
+}
+div.leaflet-popup-content p.pop-tag-image::after {
+  content: "#百景 #世界設定";
+}
+div.leaflet-popup-content p.pop-tag-exclamation-circle::after {
+  content: "#非公式イベント";
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 6px;
+}
+
+div.leaflet-popup-content pre {
+  margin-bottom: 10px;
+}
+div.leaflet-popup-content a.add-marker {
+  padding: 5px 10px;
+  background-color: var(--primary-100-color);
+  color: var(--surface-w-color);
+  text-decoration: none;
+  border-radius: 4px;
+}
+div.leaflet-popup-content a.add-marker:hover {
+  background-color: var(--primary-080-color);
+}
+
+div.leaflet-popup-content a.share-ban-twi {
+  display: inline-block;
+  text-align: left;
+  font-size: small;
+  font-family: "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+  text-decoration: none;
+  color: var(--pixiv-main-color);
+}
+div.leaflet-popup-content a.share-ban-twi:hover {
+  opacity: 0.5;
+}
+
+/* 要確認 - 一時非表示 */
+div.leaflet-popup-content div.tbc- {
+  display: none;
+}
+div.leaflet-popup-content div.tbc-hidden {
+  height: auto;
+  width: auto;
+  background-color: var(--primary-000-color);
+  opacity: 0.9;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  border-radius: 4px;
+}
+div.leaflet-popup-content div.tbc-hidden::after {
+  font-family: FontAwesome, "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+  content: "\f023";
+  font-size: xx-large;
+  font-weight: bold;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+}
+
+/* filter text change -------------------------------------------------------------------------- */
+li.ripple[data-value] > a {
+  display: inline-block !important;
+  width: 0 !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  overflow: hidden !important;
+  color: transparent !important;
+  padding: 0 !important;
+}
+
+li[data-value="campground"]:after,
+li[data-value="store"]:after,
+li[data-value="utensils"]:after,
+li[data-value="seedling"]:after,
+li[data-value="dragon"]:after,
+li[data-value="image"]:after,
+li[data-value="exclamation-circle"]:after,
+li[data-value="red"]:after,
+li[data-value="blue"]:after,
+li[data-value="purple"]:after,
+li[data-value="white"]:after,
+li[data-value="yellow"]:after,
+li[data-value="green"]:after,
+li[data-value="black"]:after,
+li[data-value="gray"]:after {
+  font-size: small;
+  font-family: FontAwesome, "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+  position: absolute;
+  top: 10px;
+  left: 30px;
+}
+
+li[data-value="campground"]:after {
+  content: "ギルド \f6bb";
+}
+li[data-value="store"]:after {
+  content: "拠点・施設 \f54e";
+}
+li[data-value="utensils"]:after {
+  content: "食事処 \f2e7";
+}
+li[data-value="seedling"]:after {
+  content: "植物 \f4d8";
+}
+li[data-value="dragon"]:after {
+  content: "動物・モンスター \f6d5";
+}
+li[data-value="image"]:after {
+  content: "百景・世界設定 \f03e";
+}
+li[data-value="exclamation-circle"]:after {
+  content: "非公式イベント \f06a";
+}
+
+li[data-value="red"]:after,
+li[data-value="blue"]:after,
+li[data-value="purple"]:after,
+li[data-value="white"]:after,
+li[data-value="yellow"]:after,
+li[data-value="green"]:after,
+li[data-value="black"]:after,
+li[data-value="gray"]:after {
+  height: 1.7em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right: 2.2em;
+}
+
+li[data-value="red"]:after {
+  content: "オルギット団";
+  background-image: url("../images/ic-c-orgit.svg");
+}
+li[data-value="blue"]:after {
+  content: "イスリアド家";
+  background-image: url("../images/ic-c-isriad.svg");
+}
+li[data-value="purple"]:after {
+  content: "ザリア軍";
+  background-image: url("../images/ic-c-zaria.svg");
+}
+li[data-value="white"]:after {
+  content: "エイリル教団";
+  background-image: url("../images/ic-c-eiril.svg");
+}
+li[data-value="yellow"]:after {
+  content: "ミリオン商会";
+  background-image: url("../images/ic-c-million.svg");
+}
+li[data-value="green"]:after {
+  content: "アラディア院";
+  background-image: url("../images/ic-c-aradia.svg");
+}
+li[data-value="black"]:after {
+  content: "ヴァラシン組";
+  background-image: url("../images/ic-c-valasin.svg");
+}
+li[data-value="gray"]:after {
+  content: "無所属";
+  background-image: url("../images/ic-c-non.svg");
+}
+
+.leaflet-bar .tag-filter-tags-container ul.header li {
+  font-family: "TsukuBRdGothic-Regular", "ヒラギノ丸ゴ ProN",
+    "Hiragino Maru Gothic ProN", YuGothic, "Yu Gothic", "Yu Gothic UI",
+    "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴシック",
+    "Hiragino Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    "メイリオ", Meiryo, "Meiryo UI", sans-serif;
+}
+
+/* dialog -------------------------------------------------------------------------- */
+h1 {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  height: 60px;
+  width: 60px;
+  z-index: 1002;
+  font-size: 100%;
+  background-image: url("../images/icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  color: transparent;
+  border-radius: 30px;
+  /*overflow: hidden;*/
+}
+
+h1::before {
+  content: "";
+  height: 100px;
+  width: 100px;
+  background-image: url("../images/icon-info.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -19px;
+  right: -23px;
+  animation: rotate-anime 60s linear infinite;
+  pointer-events: none;
+}
+@keyframes rotate-anime {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#dialog {
+  display: none;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  max-width: 320px;
+  z-index: 1001;
+  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.3));
+}
+.dialog-content {
+  margin: 40px 2px 0;
+  padding: 50px 2em 2em;
+  background-image: url("../images/bg-dialog.svg");
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+  font-size: small;
+}
+.dialog-content p {
+  text-align: left;
+}
+.dialog-content p + p {
+  margin-top: 1em;
+}
+.dialog-content p.indent {
+  color: var(--primary-100-color);
+  text-indent: -1em;
+  padding-left: 1em;
+  font-size: small;
+}
+
+.dialog-content .button-dialog {
+  cursor: pointer;
+  margin: 2em auto 0;
+  text-align: center;
+  font-size: small;
+  font-weight: bold;
+  color: var(--surface-w-color);
+  height: 40px;
+  max-width: 100px;
+  background-color: var(--primary-100-color);
+  line-height: 40px;
+  border-radius: 20px;
+}
+
+.dialog-content .button-dialog:hover {
+  background-color: var(--primary-080-color);
+}
+
+/* =====================================================================================
+    レスポンシブ
+======================================================================================== */
+
+/* スマホ横幅以下の画面サイズ ------------------------------------------------------------- */
+@media screen and (max-width: 767px) {
+}
+
+/* スマホ横幅以上の画面サイズ ------------------------------------------------------------- */
+@media screen and (min-width: 767px) {
+}
