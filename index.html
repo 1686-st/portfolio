@@ -1,1 +1,111 @@
-test
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>仟陸捌陸</title>
+    <meta name="description" content="いろへろ の ポートフォリオサイト">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:url" content="https://1686.site">
+    <meta property="og:title" content="仟陸捌陸">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="いろへろ の ポートフォリオサイト">
+    <meta property="og:image" content="https://1686.site/ogp.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@1686">
+    <meta property="og:site_name" content="仟陸捌陸">
+    <meta property="og:locale" content="ja_JP">
+    <link rel="stylesheet" href="main.css?20240907">
+    <link rel="apple-touch-icon" href="https://1686.site/apple-touch-icon.png">
+    <link rel="icon" href="https://1686.site/favicon.ico">
+    <link rel="icon" type="image/png" href="https://1686.site/android-chrome-192x192.png">
+    <script src="https://static.spearly.com/js/cms.js" defer></script>
+    <script>window.addEventListener('DOMContentLoaded',()=>{const t=document.querySelectorAll(':not(:defined)');for(const e of t) {e.style.visibility="hidden";}; window.spearly.config.AUTH_KEY="9YtdPBjwbc9_vSf5ymIRav8zKrkGA0SmzsewDqbs1Bg"},{once:true})</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@800&display=swap&text=168WORKSAFanrtいろへ" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/yakuhanjp@4.1.1/dist/css/yakuhanjp.css">
+
+    <body>
+    <div id="hero-image">
+        <h1><img src="img/logo.svg" alt="仟陸捌陸"></h1>
+        <p>Logo, Font design & Illustration</p>
+    </div>
+    <div id="contents_about">
+        <div><img src="img/profile.gif" alt="自画像"></div>
+        <div>
+            <h2>いろへろ <span class="lucent">/</span> 1686</h2>
+            <ul>
+                <li>ロゴ・フォントデザイン</li>
+                <li>Webサイトデザイン</li>
+                <li>マークアップ</li>
+                <li>イラストレーション</li>
+            </ul>
+            <aside>
+                <a href="https://1686.carrd.co/" target="_blank" class="tooltip"><span class="tooltip-text">Carrd｜活動場所まとめ</span><img src="img/ic-carrd.png" alt="Carrd｜活動場所まとめ"></a>
+                <a href="https://xfolio.jp/" target="_blank" class="tooltip"><span class="tooltip-text">Xfolio｜マイページ準備中</span><img src="img/ic-xfolio.png" alt="Xfolio｜マイページ準備中"></a>
+                <a href="https://www.pixiv.net/users/345948" target="_blank" class="tooltip"><span class="tooltip-text">Pixiv</span><img src="img/ic-pixiv.svg" alt="Pixiv"></a>
+            </aside>
+        </div>
+    </div>
+    <div id="contents_works">
+        <h2>WORKS</h2>
+        <div class="content">
+            <ul>
+                <li cms-loop cms-content-type="gallery" cms-option-limit="20" cms-option-filter_by="category" cms-option-filter_value="仕事">
+                    <img src="{%= gallery_image %}" alt= ""/>
+                    <article>
+                        <h3>{%= gallery_title %}</h3>
+                        <div><p class="gallery_date">{%= gallery_date %}</p><p class="category-tag">{%= gallery_category %}</p></div>
+                        {%= gallery_description %}
+                        <a href="{%= gallery_weburl %}" target="_blank">{%= gallery_weburl-title %}</a>
+                    </article>
+                </li>
+            </ul>
+        </div>
+
+        <h2>Fan Art</h2>
+        <div class="content">
+            <ul>
+                <li cms-loop cms-content-type="gallery" cms-option-limit="20" cms-option-filter_by="category" cms-option-filter_value="ファンアート">
+                    <img src="{%= gallery_image %}" alt= ""/>
+                    <article>
+                        <h3>{%= gallery_title %}</h3>
+                        <div><p class="gallery_date">{%= gallery_date %}</p><p class="category-tag">{%= gallery_category %}</p></div>
+                            {%= gallery_description %}
+                        <a href="{%= gallery_weburl %}" target="_blank">{%= gallery_weburl-title %}</a>
+                    </article>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <footer>&copy; 2021 いろへろ.</footer>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-button');
+        const contents = document.querySelectorAll('.content');
+        
+        for (const [index, tab] of tabs.entries()) {
+            tab.addEventListener('click', () => switchTab(index));
+        }
+        
+        function switchTab(index) {
+            // タブのアクティブ状態を更新
+            for (const tab of tabs) {
+                tab.classList.remove('active');
+            }
+            tabs[index].classList.add('active');
+            // 一度全てのタブを非表示にする
+            for (const content of contents) {
+                content.classList.remove('active');
+            }
+            // 選択したタブのコンテンツを表示する
+            contents[index].classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
