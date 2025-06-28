@@ -1,0 +1,35 @@
+# PerplexityBot
+User-agent: PerplexityBot
+Disallow: /
+
+# ChatGPT関連のクローラーをブロック
+User-agent: GPTBot
+Disallow: /
+User-agent: ChatGPT-User
+Disallow: /
+
+# ClaudeBot関連のクローラーをブロック
+User-agent: ClaudeBot
+Disallow: /
+
+# Google-Extendedを含むGoogleのクローラーをブロック
+User-agent: Google-Extended
+Disallow: /
+
+# Microsoftの生成AI（Copilotなど）のクローラーをブロック
+User-agent: Bingbot
+Disallow: /
+User-agent: BingPreview
+Disallow: /
+
+# Common Crawlのクローラーをブロック
+User-agent: CCBot
+Disallow: /
+
+# Googleのクローラーをブロック
+User-agent: Googlebot
+Disallow: /
+User-agent: AdsBot-Google
+Disallow: /
+User-agent: Googlebot-Image
+Disallow: /
