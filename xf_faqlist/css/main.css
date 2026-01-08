@@ -1,0 +1,198 @@
+/* common ----------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: YakuHanJP, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    YuGothic, "Yu Gothic", "Yu Gothic UI", "ヒラギノ角ゴ ProN W3",
+    Hiragino Kaku Gothic ProN, "Hiragino Sans", Arial, "メイリオ", Meiryo,
+    "Meiryo UI", sans-serif;
+  background-color: #e6ebe0;
+  color: #473335;
+  text-align: center;
+}
+/* https://coolors.co/fcaa67-b0413e-548687-473335-e6ebe0 */
+
+body {
+  animation: fadeIn 1s ease 0s 1 normal;
+  position: relative;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+a.returntop {
+  background-color: #fff;
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.5);
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-decoration: none;
+  border-radius: 20px;
+}
+
+/* wrap ----------------------------------- */
+#wrap {
+  padding: 0 1em;
+  display: inline-block;
+  text-align: initial;
+}
+
+/* header ----------------------------------- */
+header {
+  padding: 2em 0;
+}
+
+header h1 {
+  color: #548687;
+  font-size: large;
+  display: block;
+  font-weight: normal;
+}
+
+/* ABOUT ----------------------------------- */
+#contents_about > h2 {
+  display: none;
+}
+#contents_about a {
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+#contents_about a:link,
+#contents_about a:visited {
+  color: #548687;
+}
+
+#contents_about a:hover,
+#contents_about a:active {
+  color: #fcaa67;
+}
+
+#contents_about {
+  padding: 0 0 1em;
+  margin: 0 0 2em;
+  border-bottom: 1px solid rgba(71, 51, 53, 0.3);
+}
+
+#contents_about div {
+  line-height: 1.5;
+}
+
+#contents_about div p {
+  margin-right: 1em;
+}
+
+#contents_about div.jump {
+  margin: 2rem 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#contents_about div.jump a {
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 80px;
+}
+
+/* WORKS ----------------------------------- */
+#contents_works {
+  margin-bottom: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 1rem;
+}
+
+#contents_works a {
+  position: relative;
+  text-decoration: none;
+  transition: 0.3s;
+  line-height: 2.5;
+  font-size: small;
+  background-color: #fff;
+  display: block;
+}
+
+#contents_works a:link {
+  color: #b0413e;
+}
+
+#contents_works a:visited {
+  color: #548687;
+}
+
+#contents_works a:hover,
+#contents_works a:active {
+  color: #473335;
+}
+
+#contents_works > h2 {
+  display: none;
+}
+
+#contents_works h3 {
+  font-size: large;
+  font-weight: normal;
+  margin-bottom: 0.5em;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+}
+#contents_works h3 > i {
+  font-size: larger;
+}
+
+#contents_works > div {
+  background-color: #fff;
+  border-radius: 2rem;
+  padding: 2rem;
+  align-self: flex-start;
+}
+
+/* footer ----------------------------------- */
+#wrap > footer {
+  font-size: xx-small;
+  opacity: 0.4;
+  padding: 0 0 2em;
+}
+
+@media screen and (min-width: 30em) {
+  /* ~480px（スマホ縦） */
+}
+
+@media screen and (min-width: 37.5em) {
+  /* 480px~600px（スマホ横） */
+}
+
+@media screen and (min-width: 48em) {
+  /* 600px~768px（タブレット） */
+}
+
+@media screen and (min-width: 60em) {
+  /* 768px~960px（タブレット） */
+}
+
+@media screen and (min-width: 80em) {
+  /* 960px~1280px（小型PC） */
+}
+
+/* luminous ----------------------------------- */
+
+@media screen and (max-width: 460px) {
+  .lum-lightbox-inner img {
+    max-width: 160vw !important; /* 軽くスワイプで左端から右端まで動かせる量 */
+    max-height: 85vh !important; /* 上下に適度に余白 */
+  }
+}
