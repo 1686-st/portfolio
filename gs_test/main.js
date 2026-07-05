@@ -4,7 +4,7 @@ const parseCsv = (csvString) => {
   const rows = csvString.split("\n");
   return rows.map((row) => {
     const [date, content] = row.split(",").map((col) => col.slice(1, -1));
-    return { date, content };
+    return { date, content, content2, content3 };
   });
 };
 
@@ -15,12 +15,16 @@ const parseCsv = (csvString) => {
 
   parseCsv(content)
     .reverse()
-    .forEach(({ date, content }) => {
+    .forEach(({ date, content, content2, content3 }) => {
       const tableRow = document.createElement("tr");
       const dateCell = document.createElement("td");
       dateCell.textContent = date;
       const contentCell = document.createElement("td");
       contentCell.textContent = content;
+      const contentCell = document.createElement("td");
+      contentCell.textContent = content2;
+      const contentCell = document.createElement("td");
+      contentCell.textContent = content3;
       tableRow.appendChild(dateCell);
       tableRow.appendChild(contentCell);
       newsTableBody.appendChild(tableRow);
